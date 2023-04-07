@@ -36,5 +36,24 @@ pipeline {
         }
       }
     }
+    stage('Update Deployment File') {
+        environment {
+            GIT_REPO_NAME = "jenkins-sonar-argo-k8s"
+            GIT_USER_NAME = "Imlucky883"
+        }
+        steps {
+            withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                sh '''
+                    git config user.email "lucky@gmail.com"
+                    git config user.name "Laxman Patel"
+                    BUILD_NUMBER=${BUILD_NUMBER}
+                    sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" deployment.yml
+                    git add deployment.yml
+                    git commit -m "Update deployment image to version ${BUILD_NUMBER}"
+                    git push https://${GITHUB_TOKEN}@github.com/${GIT_USER_NAME}/${GIT_REPO_NAME} HEAD:main
+                '''
+            }
+        }
+    }
 }
 }
