@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: sprint-boot-app
-        image: gawinthorndyke/jenkins-sonar-argo-k8s:replaceImageTag
+        image: gawinthorndyke/jenkins-sonar-argo-k8s:18
         ports:
         - containerPort: 8080
