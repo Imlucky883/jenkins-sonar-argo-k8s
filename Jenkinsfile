@@ -3,15 +3,12 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        sh 'echo passed'
-      //git branch: 'main', url: 'https://github.com/iam-veeramalla/Jenkins-Zero-To-Hero.git'
+      git branch: 'main', url: 'https://github.com/Imlucky883/jenkins-sonar-argo-k8s'
       }
     }
     stage('Build and Test') {
       steps {
-        sh 'ls -ltr'
-        // build the project and create a JAR file
-        sh 'cd java-maven-sonar-argocd-helm-k8s/spring-boot-app && mvn clean package'
+        sh 'mvn clean package'
       }
     }
     stage('Static Code Analysis') {
